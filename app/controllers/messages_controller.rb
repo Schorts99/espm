@@ -1,4 +1,5 @@
 class MessagesController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :find_message, except: [:index, :new, :create]
 
   def index
@@ -13,10 +14,9 @@ class MessagesController < ApplicationController
     @message = current_user.messages.build(message_params)
 
     if @message.save
-      flash[:notice] = "Mensaje creado"
       redirect_to root_path
     else
-      flash[:alert] = "Hubo un error al crear el mensaje"
+      flash[:alert] = "Hubo un error al crear el mensaje, intente de nuevo"
       render 'new'
     end
   end
@@ -26,14 +26,13 @@ class MessagesController < ApplicationController
       flash[:notice] = "Mensaje actualizado"
       redirect_to message_path
     else
-      flash[:alert] = "Hubo un error al actualizar el mensaje"
+      flash[:alert] = "Hubo un error al actualizar el mensaje, intente de nuevo"
       render 'edit'
     end
   end
 
   def destroy
     @message.destroy
-    flash[:notice] = "Mensaje eliminado"
     redirect_to root_path
   end
 

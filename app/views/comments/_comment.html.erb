@@ -1,0 +1,16 @@
+<div class="comment">
+  <p class="comment-content"><%= comment.content %></p>
+  <p class="comment-posted-by">Por <%= comment.user.email %> Hace <%= time_ago_in_words(
+  comment.created_at) %></p>
+
+  <!-- Administración del comentario -->
+  <% if user_signed_in? %>
+    <% if comment.user_id == current_user.id %>
+      <div class="links">
+        <%= link_to "Editar", edit_message_comment_path(comment.message, comment) %>
+        <%= link_to "Eliminar", message_comment_path(comment.message, comment), method: :delete,
+        data: { confirm: "¿Estás seguro?" } %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
