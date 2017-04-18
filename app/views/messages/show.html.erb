@@ -1,0 +1,14 @@
+<div class="col-md-10 col-md-offset-1">
+  <div class="message-show">
+    <h2><%= @message.title %></h2>
+    <p class="message-posted-by">Hace <%= time_ago_in_words(@message.created_at) %></p>
+    <p class="message-desc"><%= @message.description %></p>
+
+    <div class="links btn-group">
+      <%= link_to "Regresar", root_path, class: 'btn btn-default' %>
+      <%= link_to "Arreglar", edit_message_path(@message), class: 'btn btn-primary' %>
+      <%= link_to "Eliminar", message_path(@message), method: :delete, data: { confirm: "¿Estás seguro?" },
+      class: 'btn btn-danger' %>
+    </div>
+  </div>
+</div>
